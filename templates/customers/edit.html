@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Customer - Hotel Management System{% endblock %}
+{% block header_title %}Edit Guest Profile{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-user-pen text-primary me-2"></i>Update Customer Details</h4>
+                <p class="text-muted small">Edit customer profile for {{ customer.full_name }}.</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('customer.edit_customer', customer_id=customer._id) }}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Full Name</label>
+                            {{ form.full_name(class="form-control") }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Email Address</label>
+                            {{ form.email(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Phone Number</label>
+                            {{ form.phone(class="form-control") }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">ID Proof Type</label>
+                            {{ form.id_type(class="form-select") }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">ID Number</label>
+                            {{ form.id_number(class="form-control") }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Replace ID Proof Document</label>
+                            {{ form.id_proof(class="form-control") }}
+                            {% if customer.id_proof_url %}
+                                <div class="form-text mt-1">Current file: <a href="{{ customer.id_proof_url }}" target="_blank">View File</a></div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Residential Address</label>
+                        {{ form.address(class="form-control", rows="3") }}
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('customer.customer_details', customer_id=customer._id) }}" class="btn btn-light px-4">Cancel</a>
+                        {{ form.submit(class="btn btn-primary px-4") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

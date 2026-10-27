@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}Register Customer - Hotel Management System{% endblock %}
+{% block header_title %}Guest Registration{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-user-plus text-primary me-2"></i>Register New Customer / Guest</h4>
+                <p class="text-muted small">Enter guest personal information and upload Cloudinary ID verification proof.</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('customer.add_customer') }}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Full Name <span class="text-danger">*</span></label>
+                            {{ form.full_name(class="form-control" + (" is-invalid" if form.full_name.errors else ""), placeholder="e.g. Rahul Sharma") }}
+                            {% for error in form.full_name.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                            {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="rahul@example.com") }}
+                            {% for error in form.email.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
+                            {{ form.phone(class="form-control" + (" is-invalid" if form.phone.errors else ""), placeholder="+91 9876543210") }}
+                            {% for error in form.phone.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">ID Proof Type <span class="text-danger">*</span></label>
+                            {{ form.id_type(class="form-select") }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">ID Number / Document No. <span class="text-danger">*</span></label>
+                            {{ form.id_number(class="form-control" + (" is-invalid" if form.id_number.errors else ""), placeholder="e.g. ABCD1234EF") }}
+                            {% for error in form.id_number.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Upload ID Proof (Cloudinary)</label>
+                            {{ form.id_proof(class="form-control") }}
+                            <div class="form-text">JPG, PNG, WEBP or PDF (Max 16MB).</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Residential Address <span class="text-danger">*</span></label>
+                        {{ form.address(class="form-control", rows="3", placeholder="Full home/permanent address...") }}
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('customer.list_customers') }}" class="btn btn-light px-4">Cancel</a>
+                        {{ form.submit(class="btn btn-primary px-4") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

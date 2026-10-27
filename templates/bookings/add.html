@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+
+{% block title %}Create Booking - Hotel Management System{% endblock %}
+{% block header_title %}New Booking Reservation{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-calendar-plus text-primary me-2"></i>Create New Room Reservation</h4>
+                <p class="text-muted small">Select guest, pick room, specify stay dates, and review double-booking validation.</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('booking.add_booking') }}" id="bookingForm">
+                    {{ form.hidden_tag() }}
+
+                    <div class="row g-4">
+                        <!-- Form Inputs -->
+                        <div class="col-12 col-md-7">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Step 1: Select Guest / Customer <span class="text-danger">*</span></label>
+                                {{ form.customer_id(class="form-select select2", id="selectCustomer") }}
+                                <div class="form-text">Don't see guest? <a href="{{ url_for('customer.add_customer') }}" target="_blank">Register Customer first</a></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Step 2: Select Room <span class="text-danger">*</span></label>
+                                {{ form.room_id(class="form-select", id="selectRoom") }}
+                            </div>
+
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Step 3: Check-in Date <span class="text-danger">*</span></label>
+                                    {{ form.check_in(class="form-control", id="inputCheckIn") }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Step 4: Check-out Date <span class="text-danger">*</span></label>
+                                    {{ form.check_out(class="form-control", id="inputCheckOut") }}
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <a href="{{ url_for('booking.list_bookings') }}" class="btn btn-light px-4">Cancel</a>
+                                {{ form.submit(class="btn btn-primary px-4", id="btnSubmitBooking") }}
+                            </div>
+                        </div>
+
+                        <!-- Live Billing Preview Panel -->
+                        <div class="col-12 col-md-5">
+                            <div class="card bg-light border-0 rounded-4 p-4 h-100">
+                                <h5 class="fw-bold font-outfit text-dark mb-3"><i class="fa-solid fa-calculator text-primary me-2"></i>Booking Summary</h5>
+
+                                <div id="availabilityAlert" class="alert alert-info py-2 px-3 small rounded-3 mb-3">
+                                    <i class="fa-solid fa-circle-info me-1"></i> Select dates and room to calculate total.
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Stay Duration:</span>
+                                    <span class="fw-bold font-monospace text-dark" id="calcDays">0 Days</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Room Rate / Day:</span>
+                                    <span class="fw-bold font-monospace text-dark" id="calcRate">₹ 0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Room Charges:</span>
+                                    <span class="fw-bold font-monospace text-dark" id="calcRoomCharges">₹ 0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Estimated GST (18%):</span>
+                                    <span class="fw-bold font-monospace text-dark" id="calcGST">₹ 0.00</span>
+                                </div>
+
+                                <hr class="my-3">
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="fw-bold font-outfit text-dark">Estimated Total:</span>
+                                    <span class="fw-bold font-outfit fs-4 text-primary" id="calcTotal">₹ 0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const roomSelect = document.getElementById("selectRoom");
+        const checkInInput = document.getElementById("inputCheckIn");
+        const checkOutInput = document.getElementById("inputCheckOut");
+        const alertBox = document.getElementById("availabilityAlert");
+        const btnSubmit = document.getElementById("btnSubmitBooking");
+
+        function calculateLivePrice() {
+            const roomId = roomSelect.value;
+            const checkIn = checkInInput.value;
+            const checkOut = checkOutInput.value;
+
+            if (!roomId || !checkIn || !checkOut) return;
+
+            fetch("/bookings/api/calculate-price", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ room_id: roomId, check_in: checkIn, check_out: checkOut, food_charges: 0 })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    alertBox.className = "alert alert-warning py-2 px-3 small rounded-3 mb-3";
+                    alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> ${data.error}`;
+                    return;
+                }
+
+                document.getElementById("calcDays").innerText = `${data.number_of_days} Night(s)`;
+                document.getElementById("calcRate").innerText = `₹ ${data.room_price_per_day.toFixed(2)}`;
+                document.getElementById("calcRoomCharges").innerText = `₹ ${data.room_charges.toFixed(2)}`;
+                document.getElementById("calcGST").innerText = `₹ ${data.gst.toFixed(2)}`;
+                document.getElementById("calcTotal").innerText = `₹ ${data.total_amount.toFixed(2)}`;
+
+                if (data.available) {
+                    alertBox.className = "alert alert-success py-2 px-3 small rounded-3 mb-3";
+                    alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> ${data.avail_msg}`;
+                    btnSubmit.disabled = false;
+                } else {
+                    alertBox.className = "alert alert-danger py-2 px-3 small rounded-3 mb-3";
+                    alertBox.innerHTML = `<i class="fa-solid fa-circle-xmark me-1"></i> ${data.avail_msg}`;
+                    btnSubmit.disabled = true;
+                }
+            })
+            .catch(err => console.error(err));
+        }
+
+        roomSelect.addEventListener("change", calculateLivePrice);
+        checkInInput.addEventListener("change", calculateLivePrice);
+        checkOutInput.addEventListener("change", calculateLivePrice);
+    });
+</script>
+{% endblock %}

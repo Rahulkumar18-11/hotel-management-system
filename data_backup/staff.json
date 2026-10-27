@@ -1,0 +1,287 @@
+[
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa611"
+    },
+    "name": "Amit Verma",
+    "email": "amit.v@hotel.com",
+    "phone": "9822110033",
+    "designation": "Front Desk Manager",
+    "salary": 45000.0,
+    "address": "Churchgate, Mumbai",
+    "joining_date": "2022-01-15",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.682Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.682Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa612"
+    },
+    "name": "Sunita Reddy",
+    "email": "sunita.r@hotel.com",
+    "phone": "9844332211",
+    "designation": "Executive Housekeeper",
+    "salary": 32000.0,
+    "address": "Indiranagar, Bengaluru",
+    "joining_date": "2022-05-10",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.682Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.682Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa613"
+    },
+    "name": "Rajesh Khanna",
+    "email": "chef.rajesh@hotel.com",
+    "phone": "9911223344",
+    "designation": "Head Executive Chef",
+    "salary": 65000.0,
+    "address": "Bandra West, Mumbai",
+    "joining_date": "2021-11-01",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa614"
+    },
+    "name": "Deepak Saxena",
+    "email": "deepak.s@hotel.com",
+    "phone": "9777888999",
+    "designation": "Chief Security Officer",
+    "salary": 38000.0,
+    "address": "Vashi, Navi Mumbai",
+    "joining_date": "2023-02-01",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa615"
+    },
+    "name": "Anjali Rao",
+    "email": "anjali.rao@hotel.com",
+    "phone": "9666555444",
+    "designation": "Guest Relations Lead",
+    "salary": 40000.0,
+    "address": "Koramangala, Bengaluru",
+    "joining_date": "2023-04-18",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa616"
+    },
+    "name": "Manish Pandey",
+    "email": "manish.p@hotel.com",
+    "phone": "9555444333",
+    "designation": "Chief Maintenance Engineer",
+    "salary": 42000.0,
+    "address": "Whitefield, Bengaluru",
+    "joining_date": "2022-08-20",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.683Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa617"
+    },
+    "name": "Pooja Banerjee",
+    "email": "pooja.b@hotel.com",
+    "phone": "9444333222",
+    "designation": "Spa & Wellness Director",
+    "salary": 48000.0,
+    "address": "Juhu, Mumbai",
+    "joining_date": "2023-01-05",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.684Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.684Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa618"
+    },
+    "name": "Suresh Iyer",
+    "email": "suresh.i@hotel.com",
+    "phone": "9333222111",
+    "designation": "Senior Accountant",
+    "salary": 50000.0,
+    "address": "T Nagar, Chennai",
+    "joining_date": "2021-06-12",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.684Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.684Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa619"
+    },
+    "name": "Rina Sen",
+    "email": "rina.sen@hotel.com",
+    "phone": "9222111000",
+    "designation": "Concierge Executive",
+    "salary": 30000.0,
+    "address": "Salt Lake, Kolkata",
+    "joining_date": "2023-07-01",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.685Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.685Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa61a"
+    },
+    "name": "Gaurav Bhatia",
+    "email": "gaurav.b@hotel.com",
+    "phone": "9111000999",
+    "designation": "Food & Beverage Supervisor",
+    "salary": 35000.0,
+    "address": "CP, New Delhi",
+    "joining_date": "2022-10-15",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.685Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.685Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa61b"
+    },
+    "name": "Tanya Deshmukh",
+    "email": "tanya.d@hotel.com",
+    "phone": "9000999888",
+    "designation": "Front Desk Executive",
+    "salary": 28000.0,
+    "address": "Thane, Maharashtra",
+    "joining_date": "2023-09-10",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.685Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.685Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa61c"
+    },
+    "name": "Kunal Kapoor",
+    "email": "kunal.k@hotel.com",
+    "phone": "9888777666",
+    "designation": "Sous Chef",
+    "salary": 40000.0,
+    "address": "Andheri East, Mumbai",
+    "joining_date": "2023-03-25",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.686Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.686Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa61d"
+    },
+    "name": "Nisha Sharma",
+    "email": "nisha.s@hotel.com",
+    "phone": "9777666555",
+    "designation": "Housekeeping Supervisor",
+    "salary": 29000.0,
+    "address": "HSR Layout, Bengaluru",
+    "joining_date": "2023-08-14",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.686Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.686Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa61e"
+    },
+    "name": "Rakesh Nambiar",
+    "email": "rakesh.n@hotel.com",
+    "phone": "9666555777",
+    "designation": "IT & Systems Manager",
+    "salary": 55000.0,
+    "address": "Gachibowli, Hyderabad",
+    "joining_date": "2022-03-01",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.686Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.686Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa61f"
+    },
+    "name": "Preeti Kulkarni",
+    "email": "preeti.k@hotel.com",
+    "phone": "9555666777",
+    "designation": "HR Executive",
+    "salary": 36000.0,
+    "address": "Kothrud, Pune",
+    "joining_date": "2023-02-15",
+    "photo_url": "",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.687Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.687Z"
+    }
+  }
+]

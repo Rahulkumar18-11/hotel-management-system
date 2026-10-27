@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Room - Hotel Management System{% endblock %}
+{% block header_title %}Add Room Inventory{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-bed text-primary me-2"></i>Add New Room to Inventory</h4>
+                <p class="text-muted small">Specify room pricing, category, maximum occupancy capacity, and photograph.</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('room.add_room') }}" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Room Number <span class="text-danger">*</span></label>
+                            {{ form.room_number(class="form-control" + (" is-invalid" if form.room_number.errors else ""), placeholder="e.g. 101, 204B") }}
+                            {% for error in form.room_number.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Room Category <span class="text-danger">*</span></label>
+                            {{ form.room_type(class="form-select") }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Price per Day (₹) <span class="text-danger">*</span></label>
+                            {{ form.price_per_day(class="form-control" + (" is-invalid" if form.price_per_day.errors else ""), placeholder="e.g. 2500") }}
+                            {% for error in form.price_per_day.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Max Guest Capacity <span class="text-danger">*</span></label>
+                            {{ form.capacity(class="form-control" + (" is-invalid" if form.capacity.errors else ""), placeholder="e.g. 2") }}
+                            {% for error in form.capacity.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Initial Room Status</label>
+                            {{ form.status(class="form-select") }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Room Photograph (Cloudinary)</label>
+                            {{ form.image(class="form-control") }}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Room Description & Amenities</label>
+                        {{ form.address if form.address else form.description(class="form-control", rows="3", placeholder="AC, Sea View, King Bed, Free Wi-Fi...") }}
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('room.list_rooms') }}" class="btn btn-light px-4">Cancel</a>
+                        {{ form.submit(class="btn btn-primary px-4") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}Staff Management - Hotel Management System{% endblock %}
+{% block header_title %}Staff Employee Directory{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-header bg-white border-0 pt-4 px-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-user-tie text-primary me-2"></i>Hotel Staff Management</h4>
+            <p class="text-muted small mb-0">Admin view of staff employees, designations, salaries, and photos.</p>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <form method="GET" action="{{ url_for('staff.list_staff') }}" class="d-flex align-items-center gap-2">
+                <div class="input-group input-group-sm">
+                    <input type="text" name="q" value="{{ search_query }}" class="form-control rounded-start-pill" placeholder="Search staff name, email, role...">
+                    <button type="submit" class="btn btn-primary rounded-end-pill"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+
+            {% if current_user.role == 'admin' %}
+            <a href="{{ url_for('staff.add_staff') }}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm text-nowrap">
+                <i class="fa-solid fa-user-plus me-1"></i> Add Staff
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card-body p-0 mt-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Photo</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Salary</th>
+                        <th>Joining Date</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if staff_list %}
+                        {% for s in staff_list %}
+                        <tr>
+                            <td class="ps-4">
+                                {% if s.photo_url %}
+                                    <img src="{{ s.photo_url }}" alt="{{ s.name }}" class="rounded-circle object-fit-cover" style="width:40px; height:40px;">
+                                {% else %}
+                                    <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:40px; height:40px;">
+                                        {{ s.name[0].upper() }}
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td><span class="fw-bold text-dark font-outfit">{{ s.name }}</span></td>
+                            <td><span class="badge bg-info-subtle text-info">{{ s.designation }}</span></td>
+                            <td>{{ s.email }}</td>
+                            <td class="font-monospace">{{ s.phone }}</td>
+                            <td class="fw-bold text-success">₹{{ "{:,.2f}".format(s.salary) }}</td>
+                            <td><span class="small text-muted">{{ s.joining_date }}</span></td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ url_for('staff.staff_details', staff_id=s._id) }}" class="btn btn-outline-primary" title="View"><i class="fa-solid fa-eye"></i></a>
+                                    {% if current_user.role == 'admin' %}
+                                    <a href="{{ url_for('staff.edit_staff', staff_id=s._id) }}" class="btn btn-outline-secondary" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form method="POST" action="{{ url_for('staff.delete_staff', staff_id=s._id) }}" class="d-inline" onsubmit="return confirm('Delete staff record?');">
+                                        <button type="submit" class="btn btn-outline-danger" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-5 text-muted">No staff records found.</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

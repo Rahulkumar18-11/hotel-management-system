@@ -1,0 +1,347 @@
+[
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa620"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa5fd",
+    "room_id": "6aa07878fb753c96bcbfa5eb",
+    "check_in": "2026-09-06",
+    "check_out": "2026-09-10",
+    "number_of_days": 4,
+    "room_price": 2500.0,
+    "food_charges": 500.0,
+    "subtotal": 10500.0,
+    "gst": 1890.0,
+    "total_amount": 12390.0,
+    "status": "checked_in",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.687Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.687Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa621"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa5fe",
+    "room_id": "6aa07878fb753c96bcbfa5ed",
+    "check_in": "2026-09-07",
+    "check_out": "2026-09-11",
+    "number_of_days": 4,
+    "room_price": 3800.0,
+    "food_charges": 800.0,
+    "subtotal": 16000.0,
+    "gst": 2880.0,
+    "total_amount": 18880.0,
+    "status": "checked_in",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.688Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.688Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa622"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa5ff",
+    "room_id": "6aa07878fb753c96bcbfa5ee",
+    "check_in": "2026-09-08",
+    "check_out": "2026-09-10",
+    "number_of_days": 2,
+    "room_price": 2700.0,
+    "food_charges": 0.0,
+    "subtotal": 5400.0,
+    "gst": 972.0,
+    "total_amount": 6372.0,
+    "status": "reserved",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.688Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.688Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa623"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa600",
+    "room_id": "6aa07878fb753c96bcbfa5ef",
+    "check_in": "2026-09-04",
+    "check_out": "2026-09-07",
+    "number_of_days": 3,
+    "room_price": 4000.0,
+    "food_charges": 1200.0,
+    "subtotal": 13200.0,
+    "gst": 2376.0,
+    "total_amount": 15576.0,
+    "status": "checked_out",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.689Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.689Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa624"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa601",
+    "room_id": "6aa07878fb753c96bcbfa5f2",
+    "check_in": "2026-09-09",
+    "check_out": "2026-09-12",
+    "number_of_days": 3,
+    "room_price": 6000.0,
+    "food_charges": 0.0,
+    "subtotal": 18000.0,
+    "gst": 3240.0,
+    "total_amount": 21240.0,
+    "status": "reserved",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.690Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.690Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa625"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa602",
+    "room_id": "6aa07878fb753c96bcbfa5f4",
+    "check_in": "2026-09-05",
+    "check_out": "2026-09-08",
+    "number_of_days": 3,
+    "room_price": 7000.0,
+    "food_charges": 650.0,
+    "subtotal": 21650.0,
+    "gst": 3897.0,
+    "total_amount": 25547.0,
+    "status": "checked_out",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.690Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.690Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa626"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa603",
+    "room_id": "6aa07878fb753c96bcbfa5ea",
+    "check_in": "2026-09-08",
+    "check_out": "2026-09-11",
+    "number_of_days": 3,
+    "room_price": 1600.0,
+    "food_charges": 200.0,
+    "subtotal": 5000.0,
+    "gst": 900.0,
+    "total_amount": 5900.0,
+    "status": "reserved",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa627"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa604",
+    "room_id": "6aa07878fb753c96bcbfa5ec",
+    "check_in": "2026-09-03",
+    "check_out": "2026-09-06",
+    "number_of_days": 3,
+    "room_price": 2600.0,
+    "food_charges": 1500.0,
+    "subtotal": 9300.0,
+    "gst": 1674.0,
+    "total_amount": 10974.0,
+    "status": "checked_out",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa628"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa605",
+    "room_id": "6aa07878fb753c96bcbfa5f0",
+    "check_in": "2026-09-07",
+    "check_out": "2026-09-09",
+    "number_of_days": 2,
+    "room_price": 4200.0,
+    "food_charges": 400.0,
+    "subtotal": 8800.0,
+    "gst": 1584.0,
+    "total_amount": 10384.0,
+    "status": "checked_in",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.692Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.692Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa629"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa606",
+    "room_id": "6aa07878fb753c96bcbfa5f3",
+    "check_in": "2026-09-10",
+    "check_out": "2026-09-13",
+    "number_of_days": 3,
+    "room_price": 6500.0,
+    "food_charges": 0.0,
+    "subtotal": 19500.0,
+    "gst": 3510.0,
+    "total_amount": 23010.0,
+    "status": "reserved",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.692Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.692Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa62a"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa607",
+    "room_id": "6aa07878fb753c96bcbfa5f5",
+    "check_in": "2026-09-02",
+    "check_out": "2026-09-05",
+    "number_of_days": 3,
+    "room_price": 4500.0,
+    "food_charges": 900.0,
+    "subtotal": 14400.0,
+    "gst": 2592.0,
+    "total_amount": 16992.0,
+    "status": "checked_out",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.693Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.693Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa62b"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa608",
+    "room_id": "6aa07878fb753c96bcbfa5f6",
+    "check_in": "2026-09-06",
+    "check_out": "2026-09-09",
+    "number_of_days": 3,
+    "room_price": 2800.0,
+    "food_charges": 350.0,
+    "subtotal": 8750.0,
+    "gst": 1575.0,
+    "total_amount": 10325.0,
+    "status": "checked_in",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.694Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.694Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa62c"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa609",
+    "room_id": "6aa07878fb753c96bcbfa5f7",
+    "check_in": "2026-09-11",
+    "check_out": "2026-09-14",
+    "number_of_days": 3,
+    "room_price": 1900.0,
+    "food_charges": 0.0,
+    "subtotal": 5700.0,
+    "gst": 1026.0,
+    "total_amount": 6726.0,
+    "status": "reserved",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.694Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.694Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa62d"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa60a",
+    "room_id": "6aa07878fb753c96bcbfa5f8",
+    "check_in": "2026-09-01",
+    "check_out": "2026-09-06",
+    "number_of_days": 5,
+    "room_price": 8000.0,
+    "food_charges": 2500.0,
+    "subtotal": 42500.0,
+    "gst": 7650.0,
+    "total_amount": 50150.0,
+    "status": "checked_out",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.695Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.695Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa62e"
+    },
+    "customer_id": "6aa07878fb753c96bcbfa60b",
+    "room_id": "6aa07878fb753c96bcbfa5f9",
+    "check_in": "2026-09-08",
+    "check_out": "2026-09-12",
+    "number_of_days": 4,
+    "room_price": 4800.0,
+    "food_charges": 600.0,
+    "subtotal": 19800.0,
+    "gst": 3564.0,
+    "total_amount": 23364.0,
+    "status": "reserved",
+    "created_by": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.695Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.695Z"
+    }
+  }
+]

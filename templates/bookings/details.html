@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block title %}Booking Details - Hotel Management System{% endblock %}
+{% block header_title %}Booking & Stay Details{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="card-header bg-white border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="fw-bold font-outfit text-dark mb-0">Booking #{{ str(booking._id)[-6:].upper() }}</h4>
+                    <span class="badge rounded-pill 
+                        {% if booking.status == 'reserved' %}bg-info text-dark
+                        {% elif booking.status == 'checked_in' %}bg-success
+                        {% elif booking.status == 'checked_out' %}bg-secondary
+                        {% else %}bg-danger{% endif %} text-capitalize fs-6 mt-1">
+                        {{ booking.status.replace('_', ' ') }}
+                    </span>
+                </div>
+
+                <div class="btn-group">
+                    {% if booking.status == 'reserved' %}
+                    <a href="{{ url_for('booking.check_in', booking_id=booking._id) }}" class="btn btn-success rounded-pill px-3 me-2"><i class="fa-solid fa-right-to-bracket me-1"></i> Check-In</a>
+                    <a href="{{ url_for('booking.cancel_booking', booking_id=booking._id) }}" class="btn btn-outline-danger rounded-pill px-3">Cancel</a>
+                    {% elif booking.status == 'checked_in' %}
+
+                    <a href="{{ url_for('booking.check_out', booking_id=booking._id) }}" class="btn btn-warning rounded-pill px-3"><i class="fa-solid fa-right-from-bracket me-1"></i> Check-Out & Bill</a>
+                    {% elif booking.status == 'checked_out' %}
+                    <a href="{{ url_for('billing.invoice', booking_id=booking._id) }}" class="btn btn-primary rounded-pill px-3"><i class="fa-solid fa-file-invoice me-1"></i> View GST Invoice</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="row g-4 mb-4">
+                    <!-- Guest Card -->
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded-3 h-100">
+                            <small class="text-muted text-uppercase fw-semibold d-block mb-2">Guest Profile</small>
+                            {% if booking.customer %}
+                                <h6 class="fw-bold text-dark mb-1">{{ booking.customer.full_name }}</h6>
+                                <div><i class="fa-solid fa-envelope text-secondary me-2"></i>{{ booking.customer.email }}</div>
+                                <div><i class="fa-solid fa-phone text-secondary me-2"></i>{{ booking.customer.phone }}</div>
+                                <div><i class="fa-solid fa-id-card text-secondary me-2"></i>{{ booking.customer.id_type }}: {{ booking.customer.id_number }}</div>
+                            {% else %}
+                                <span class="text-muted">Customer details unavailable.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Room Card -->
+                    <div class="col-md-6">
+                        <div class="p-3 bg-light rounded-3 h-100">
+                            <small class="text-muted text-uppercase fw-semibold d-block mb-2">Room Assigned</small>
+                            {% if booking.room %}
+                                <h6 class="fw-bold text-dark mb-1">Room {{ booking.room.room_number }} ({{ booking.room.room_type }})</h6>
+                                <div>Price Rate: <strong>₹{{ "{:,.2f}".format(booking.room.price_per_day) }} / day</strong></div>
+                                <div>Capacity: <strong>{{ booking.room.capacity }} Persons</strong></div>
+                            {% else %}
+                                <span class="text-muted">Room details unavailable.</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stay Details -->
+                <div class="row g-3 mb-4">
+                    <div class="col-4">
+                        <div class="p-3 border rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Check-In Date</small>
+                            <span class="fw-bold font-monospace text-dark fs-6">{{ booking.check_in }}</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Check-Out Date</small>
+                            <span class="fw-bold font-monospace text-dark fs-6">{{ booking.check_out }}</span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Total Stay</small>
+                            <span class="fw-bold font-outfit text-primary fs-6">{{ booking.number_of_days }} Night(s)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Breakdown -->
+                <div class="p-3 bg-light rounded-3">
+                    <h6 class="fw-bold font-outfit text-dark mb-3">Billing Summary</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Room Charges (₹{{ booking.room_price }} × {{ booking.number_of_days }} days):</span>
+                        <span class="font-monospace fw-semibold">₹{{ "{:,.2f}".format(booking.room_price * booking.number_of_days) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Food & Room Service Charges:</span>
+                        <span class="font-monospace fw-semibold">₹{{ "{:,.2f}".format(booking.food_charges) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span class="font-monospace fw-semibold">₹{{ "{:,.2f}".format(booking.subtotal) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>GST Tax (18%):</span>
+                        <span class="font-monospace fw-semibold">₹{{ "{:,.2f}".format(booking.gst) }}</span>
+                    </div>
+                    <hr class="my-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="fw-bold font-outfit fs-5">Grand Total:</span>
+                        <span class="fw-bold font-outfit fs-4 text-success">₹{{ "{:,.2f}".format(booking.total_amount) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

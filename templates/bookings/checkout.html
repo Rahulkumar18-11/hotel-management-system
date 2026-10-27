@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}Check-Out Guest - Hotel Management System{% endblock %}
+{% block header_title %}Check-Out & Billing Finalization{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-white border-0 pt-4 px-4">
+                <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-right-from-bracket text-warning me-2"></i>Guest Check-Out & Final Bill</h4>
+                <p class="text-muted small">Finalize room charges, enter additional food service charges, and compute 18% GST.</p>
+            </div>
+            <div class="card-body p-4">
+                <div class="alert alert-light border rounded-3 mb-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Guest:</strong> {{ booking.customer.full_name if booking.customer else '-' }}<br>
+                            <strong>Room:</strong> Room {{ booking.room.room_number if booking.room else '-' }} ({{ booking.room.room_type if booking.room else '' }})
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <strong>Check-In:</strong> {{ booking.check_in }}<br>
+                            <strong>Check-Out:</strong> {{ booking.check_out }} ({{ booking.number_of_days }} Days)
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" action="{{ url_for('booking.check_out', booking_id=booking._id) }}">
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Enter Food & Extra Room Service Charges (₹)</label>
+                        {{ form.food_charges(class="form-control form-control-lg font-monospace", id="foodInput") }}
+                        <div class="form-text">Room service food, laundry, or minibar charges.</div>
+                    </div>
+
+                    <div class="p-3 bg-light rounded-3 mb-4">
+                        <h6 class="fw-bold font-outfit text-dark mb-3">Live Invoice Calculation</h6>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Room Charges (₹{{ bill.room_price_per_day }} × {{ bill.number_of_days }} days):</span>
+                            <span class="font-monospace">₹{{ "{:,.2f}".format(bill.room_charges) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal:</span>
+                            <span class="font-monospace fw-bold" id="subtotalVal">₹{{ "{:,.2f}".format(bill.subtotal) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>GST Tax (18%):</span>
+                            <span class="font-monospace text-danger" id="gstVal">₹{{ "{:,.2f}".format(bill.gst) }}</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold font-outfit fs-5">Total Invoice Amount:</span>
+                            <span class="fw-bold font-outfit fs-3 text-success" id="totalVal">₹{{ "{:,.2f}".format(bill.total_amount) }}</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{{ url_for('booking.booking_details', booking_id=booking._id) }}" class="btn btn-light px-4">Cancel</a>
+                        {{ form.submit(class="btn btn-warning px-4 font-outfit fw-semibold") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const foodInput = document.getElementById("foodInput");
+        const roomCharges = {{ bill.room_charges }};
+        const gstRate = 0.18;
+
+        foodInput.addEventListener("input", function() {
+            const food = parseFloat(foodInput.value) || 0.0;
+            const subtotal = roomCharges + food;
+            const gst = subtotal * gstRate;
+            const total = subtotal + gst;
+
+            document.getElementById("subtotalVal").innerText = `₹ ${subtotal.toFixed(2)}`;
+            document.getElementById("gstVal").innerText = `₹ ${gst.toFixed(2)}`;
+            document.getElementById("totalVal").innerText = `₹ ${total.toFixed(2)}`;
+        });
+    });
+</script>
+{% endblock %}

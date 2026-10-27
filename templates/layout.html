@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cloud-Based Hotel Management & Front-Desk Platform">
+    <title>{% block title %}Hotel Management System{% endblock %}</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts (Outfit & Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    {% if current_user.is_authenticated %}
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-hotel logo-icon"></i>
+                    <span class="brand-name">GRAND HYATT</span>
+                </div>
+                <button class="btn text-light d-md-none" id="sidebarClose"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="user-pill my-3 px-3">
+                <div class="d-flex align-items-center bg-dark-subtle p-2 rounded-3 border border-secondary border-opacity-25">
+                    <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width:38px; height:38px; font-weight:700;">
+                        {{ current_user.username[0].upper() }}
+                    </div>
+                    <div class="overflow-hidden">
+                        <h6 class="mb-0 text-white text-truncate font-outfit" style="font-size: 0.9rem;">{{ current_user.username }}</h6>
+                        <span class="badge bg-primary-subtle text-primary border border-primary border-opacity-25" style="font-size: 0.7rem;">{{ current_user.role.upper() }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="{{ url_for('dashboard.index') }}" class="nav-link {% if request.endpoint == 'dashboard.index' %}active{% endif %}">
+                            <i class="fa-solid fa-chart-line nav-icon"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('customer.list_customers') }}" class="nav-link {% if 'customer' in request.endpoint %}active{% endif %}">
+                            <i class="fa-solid fa-users nav-icon"></i> Customers / Guests
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('room.list_rooms') }}" class="nav-link {% if 'room' in request.endpoint %}active{% endif %}">
+                            <i class="fa-solid fa-bed nav-icon"></i> Room Inventory
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('booking.list_bookings') }}" class="nav-link {% if 'booking' in request.endpoint %}active{% endif %}">
+                            <i class="fa-solid fa-calendar-check nav-icon"></i> Bookings & Stays
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('billing.list_invoices') }}" class="nav-link {% if 'billing' in request.endpoint %}active{% endif %}">
+                            <i class="fa-solid fa-file-invoice-dollar nav-icon"></i> Billing & Invoices
+                        </a>
+                    </li>
+
+                    {% if current_user.role in ['admin', 'manager'] %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('staff.list_staff') }}" class="nav-link {% if 'staff' in request.endpoint %}active{% endif %}">
+                            <i class="fa-solid fa-user-tie nav-icon"></i> Staff Management
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% if current_user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a href="{{ url_for('auth.register') }}" class="nav-link {% if request.endpoint == 'auth.register' %}active{% endif %}">
+                            <i class="fa-solid fa-user-plus nav-icon"></i> Add User Account
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-header text-uppercase text-secondary fs-7 mt-3 px-3">Account</li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('auth.profile') }}" class="nav-link {% if request.endpoint == 'auth.profile' %}active{% endif %}">
+                            <i class="fa-solid fa-circle-user nav-icon"></i> My Profile
+                        </a>
+                    </li>
+                    <li class="nav-item mt-2">
+                        <a href="{{ url_for('auth.logout') }}" class="nav-link text-danger">
+                            <i class="fa-solid fa-right-from-bracket nav-icon"></i> Sign Out
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-wrapper">
+            <!-- Top Navbar -->
+            <header class="navbar navbar-expand-lg top-navbar px-3 py-2 border-bottom">
+                <button class="btn btn-outline-secondary d-md-none me-2" id="sidebarToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                
+                <div class="d-none d-sm-flex align-items-center">
+                    <span class="fs-5 fw-bold font-outfit text-dark">{% block header_title %}Hotel Management System{% endblock %}</span>
+                </div>
+
+                <div class="ms-auto d-flex align-items-center gap-3">
+                    <div class="text-end d-none d-sm-block">
+                        <small class="text-muted d-block" id="liveClock">Loading time...</small>
+                    </div>
+                    <a href="{{ url_for('booking.add_booking') }}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">
+                        <i class="fa-solid fa-plus me-1"></i> New Booking
+                    </a>
+                </div>
+            </header>
+
+            <!-- Flash Alerts -->
+            <div class="container-fluid px-4 pt-3">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show shadow-sm border-0 rounded-3 mb-3" role="alert">
+                                <i class="fa-solid {% if category == 'success' %}fa-circle-check{% elif category == 'danger' %}fa-triangle-exclamation{% else %}fa-circle-info{% endif %} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Content Block -->
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    {% else %}
+    <!-- Guest / Login Layout -->
+    <div class="min-vh-100 bg-gradient-login d-flex align-items-center justify-content-center p-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080;">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show shadow" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block guest_content %}{% endblock %}
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/bootstrap.bundle.min.js"></script>
+    <!-- Application JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

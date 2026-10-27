@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+
+{% block title %}Invoice {{ invoice_number }} - Hotel Management System{% endblock %}
+{% block header_title %}Tax Invoice & Bill{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-9 col-xl-8">
+        <!-- Print Action Header -->
+        <div class="d-flex justify-content-between align-items-center mb-3 no-print">
+            <a href="{{ url_for('billing.list_invoices') }}" class="btn btn-light"><i class="fa-solid fa-arrow-left me-1"></i> Back to Invoices</a>
+            <button onclick="window.print()" class="btn btn-primary rounded-pill px-4 shadow"><i class="fa-solid fa-print me-2"></i> Print Bill / Download PDF</button>
+        </div>
+
+        <!-- Official Printable Tax Invoice Card -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden printable-invoice p-4 p-md-5 bg-white">
+            <!-- Hotel Header & Branding -->
+            <div class="row align-items-center pb-4 border-bottom">
+                <div class="col-7">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa-solid fa-hotel fa-2x text-primary me-2"></i>
+                        <h2 class="fw-bold font-outfit text-dark mb-0">GRAND HYATT</h2>
+                    </div>
+                    <p class="text-muted small mb-0">
+                        100 MG Road, Brigade Junction, Bengaluru, Karnataka 560001<br>
+                        GSTIN: 29AAAAA0000A1Z5 | Phone: +91 80 1234 5678<br>
+                        Email: billing@grandhyatt.com
+                    </p>
+                </div>
+                <div class="col-5 text-end">
+                    <span class="badge bg-primary fs-6 px-3 py-2 text-uppercase font-outfit mb-2">TAX INVOICE</span>
+                    <h5 class="fw-bold font-monospace text-primary mb-1">{{ invoice_number }}</h5>
+                    <small class="text-muted d-block">Date: {{ generated_date }}</small>
+                </div>
+            </div>
+
+            <!-- Billed To Customer Details -->
+            <div class="row my-4">
+                <div class="col-6">
+                    <small class="text-muted text-uppercase fw-semibold d-block">Billed To (Guest):</small>
+                    <h5 class="fw-bold font-outfit text-dark mb-1">{{ booking.customer.full_name if booking.customer else 'Valued Guest' }}</h5>
+                    <div class="small text-secondary"><i class="fa-solid fa-phone me-1"></i> {{ booking.customer.phone if booking.customer else '-' }}</div>
+                    <div class="small text-secondary"><i class="fa-solid fa-envelope me-1"></i> {{ booking.customer.email if booking.customer else '-' }}</div>
+                    <div class="small text-secondary"><i class="fa-solid fa-id-card me-1"></i> {{ booking.customer.id_type }}: {{ booking.customer.id_number }}</div>
+                </div>
+                <div class="col-6 text-end">
+                    <small class="text-muted text-uppercase fw-semibold d-block">Stay Summary:</small>
+                    <div class="small"><strong>Room Assigned:</strong> Room {{ booking.room.room_number if booking.room else '-' }} ({{ booking.room.room_type if booking.room else '' }})</div>
+                    <div class="small"><strong>Check-In Date:</strong> {{ booking.check_in }}</div>
+                    <div class="small"><strong>Check-Out Date:</strong> {{ booking.check_out }}</div>
+                    <div class="small"><strong>Stay Duration:</strong> {{ bill.number_of_days }} Night(s)</div>
+                    <div class="small"><strong>Booking Status:</strong> <span class="badge bg-success text-capitalize">{{ booking.status }}</span></div>
+                </div>
+            </div>
+
+            <!-- Itemized Billing Table -->
+            <div class="table-responsive my-4">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Description</th>
+                            <th class="text-center">Rate / Unit</th>
+                            <th class="text-center">Qty / Days</th>
+                            <th class="text-end">Amount (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>Room Accommodations</strong><br>
+                                <small class="text-muted">{{ booking.room.room_type if booking.room else '' }} Category - Room {{ booking.room.room_number if booking.room else '' }}</small>
+                            </td>
+                            <td class="text-center font-monospace">₹ {{ "{:,.2f}".format(bill.room_price_per_day) }}</td>
+                            <td class="text-center font-monospace">{{ bill.number_of_days }} Night(s)</td>
+                            <td class="text-end font-monospace fw-bold">₹ {{ "{:,.2f}".format(bill.room_charges) }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Food & Room Service Charges</strong><br>
+                                <small class="text-muted">In-room dining, food orders, and refreshments</small>
+                            </td>
+                            <td class="text-center font-monospace">-</td>
+                            <td class="text-center font-monospace">-</td>
+                            <td class="text-end font-monospace fw-bold">₹ {{ "{:,.2f}".format(bill.food_charges) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Total Breakdown -->
+            <div class="row justify-content-end my-3">
+                <div class="col-12 col-md-6 col-lg-5">
+                    <div class="p-3 bg-light rounded-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Room Charges Total:</span>
+                            <span class="font-monospace fw-semibold">₹ {{ "{:,.2f}".format(bill.room_charges) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Food Charges Total:</span>
+                            <span class="font-monospace fw-semibold">₹ {{ "{:,.2f}".format(bill.food_charges) }}</span>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="fw-bold">Subtotal:</span>
+                            <span class="font-monospace fw-bold">₹ {{ "{:,.2f}".format(bill.subtotal) }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">GST Tax (18%):</span>
+                            <span class="font-monospace text-danger">₹ {{ "{:,.2f}".format(bill.gst) }}</span>
+                        </div>
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold font-outfit fs-5 text-dark">Grand Total:</span>
+                            <span class="fw-bold font-outfit fs-4 text-success">₹ {{ "{:,.2f}".format(bill.total_amount) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Signatures -->
+            <div class="row pt-5 mt-4 border-top align-items-end">
+                <div class="col-6">
+                    <small class="text-muted">Terms & Conditions:</small>
+                    <p class="text-muted small mb-0">1. All tariffs are subject to government taxes.<br>2. Check-out time is 12:00 Noon.</p>
+                </div>
+                <div class="col-6 text-end">
+                    <div class="mb-4">_______________________</div>
+                    <small class="fw-bold text-dark text-uppercase">Authorized Front Desk Signature</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

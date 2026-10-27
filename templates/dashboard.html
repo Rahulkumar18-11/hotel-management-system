@@ -1,0 +1,386 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard - Hotel Management System{% endblock %}
+{% block header_title %}Dashboard & Hotel Analytics{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <!-- Top 10 Summary Metric Cards (All Clickable & Connected to Filtered Views) -->
+    <div class="row g-3 mb-4">
+        <!-- Total Rooms -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('room.list_rooms') }}?status=all" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-primary text-white p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Total Rooms</span>
+                        <i class="fa-solid fa-hotel fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ total_rooms }}</h3>
+                        <small class="text-white-50 fs-7">View All <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Available Rooms -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('room.list_rooms') }}?status=available" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-success text-white p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Available</span>
+                        <i class="fa-solid fa-door-open fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ available_rooms }}</h3>
+                        <small class="text-white-50 fs-7">Filter Available <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Booked Rooms -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('room.list_rooms') }}?status=booked" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-warning text-dark p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-dark-50 text-uppercase fw-semibold">Booked</span>
+                        <i class="fa-solid fa-key fs-4 text-dark-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ booked_rooms }}</h3>
+                        <small class="text-dark-50 fs-7">Filter Booked <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Maintenance Rooms -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('room.list_rooms') }}?status=maintenance" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-danger text-white p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Maintenance</span>
+                        <i class="fa-solid fa-wrench fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ maintenance_rooms }}</h3>
+                        <small class="text-white-50 fs-7">Filter Maintenance <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Total Customers -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('customer.list_customers') }}" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-dark text-white p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Total Guests</span>
+                        <i class="fa-solid fa-users fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ total_customers }}</h3>
+                        <small class="text-white-50 fs-7">Manage Guests <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Total Staff -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{% if current_user.role in ['admin', 'manager'] %}{{ url_for('staff.list_staff') }}{% else %}#{% endif %}" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-info text-white p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Staff Count</span>
+                        <i class="fa-solid fa-user-tie fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ total_staff }}</h3>
+                        <small class="text-white-50 fs-7">Staff Roster <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Total Bookings -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('booking.list_bookings') }}?status=all" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-secondary text-white p-3 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Total Bookings</span>
+                        <i class="fa-solid fa-calendar-check fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ total_bookings }}</h3>
+                        <small class="text-white-50 fs-7">All Bookings <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Total Revenue -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('billing.list_invoices') }}" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-indigo text-white p-3 h-100" style="background-color: #6610f2;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Total Revenue</span>
+                        <i class="fa-solid fa-indian-rupee-sign fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">₹{{ "{:,.0f}".format(total_revenue) }}</h3>
+                        <small class="text-white-50 fs-7">Invoices <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Today's Check-ins -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('booking.list_bookings') }}?status=reserved" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-teal text-white p-3 h-100" style="background-color: #20c997;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Today Check-In</span>
+                        <i class="fa-solid fa-right-to-bracket fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ todays_checkins_count }}</h3>
+                        <small class="text-white-50 fs-7">Check-ins <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Today's Check-outs -->
+        <div class="col-6 col-md-4 col-xl-2.4 col-lg-3">
+            <a href="{{ url_for('booking.list_bookings') }}?status=checked_in" class="text-decoration-none">
+                <div class="card card-metric border-0 shadow-sm rounded-4 bg-purple text-white p-3 h-100" style="background-color: #6f42c1;">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="fs-7 text-white-50 text-uppercase fw-semibold">Today Check-Out</span>
+                        <i class="fa-solid fa-right-from-bracket fs-4 text-white-50"></i>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <h3 class="fw-bold font-outfit mb-0">{{ todays_checkouts_count }}</h3>
+                        <small class="text-white-50 fs-7">Check-outs <i class="fa-solid fa-arrow-right ms-1"></i></small>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Action Navigation Toolbar -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4 p-3 bg-white">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="fa-solid fa-bolt text-warning fs-5"></i>
+                <span class="fw-bold font-outfit text-dark">Quick Actions:</span>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{{ url_for('booking.add_booking') }}" class="btn btn-sm btn-primary rounded-pill px-3">
+                    <i class="fa-solid fa-plus me-1"></i> New Booking
+                </a>
+                <a href="{{ url_for('customer.add_customer') }}" class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                    <i class="fa-solid fa-user-plus me-1"></i> Register Guest
+                </a>
+                {% if current_user.role in ['admin', 'manager'] %}
+                <a href="{{ url_for('room.add_room') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                    <i class="fa-solid fa-bed me-1"></i> Add Room
+                </a>
+                {% endif %}
+                <a href="{{ url_for('billing.list_invoices') }}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                    <i class="fa-solid fa-file-invoice-dollar me-1"></i> View Invoices
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1: Occupancy Doughnut & Monthly Revenue Bar -->
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-lg-5">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 pt-3 px-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold font-outfit mb-0"><i class="fa-solid fa-pie-chart text-primary me-2"></i>Room Occupancy</h5>
+                    <span class="badge bg-light text-dark">Live MongoDB Status</span>
+                </div>
+                <div class="card-body p-4 d-flex align-items-center justify-content-center">
+                    <div style="width: 100%; max-height: 280px;">
+                        <canvas id="chartOccupancy"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 pt-3 px-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold font-outfit mb-0"><i class="fa-solid fa-chart-column text-success me-2"></i>Monthly Revenue (₹)</h5>
+                    <span class="badge bg-success-subtle text-success">FY 2026</span>
+                </div>
+                <div class="card-body p-4">
+                    <div style="width: 100%; max-height: 280px;">
+                        <canvas id="chartRevenue"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2: Booking Status & Room Type Distribution -->
+    <div class="row g-4 mb-4">
+        <div class="col-12 col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 pt-3 px-4">
+                    <h5 class="fw-bold font-outfit mb-0"><i class="fa-solid fa-chart-donut text-info me-2"></i>Booking Status Breakdown</h5>
+                </div>
+                <div class="card-body p-4 d-flex align-items-center justify-content-center">
+                    <div style="width: 100%; max-height: 240px;">
+                        <canvas id="chartBookingStatus"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 pt-3 px-4">
+                    <h5 class="fw-bold font-outfit mb-0"><i class="fa-solid fa-bars-progress text-warning me-2"></i>Room Category Inventory</h5>
+                </div>
+                <div class="card-body p-4 d-flex align-items-center justify-content-center">
+                    <div style="width: 100%; max-height: 240px;">
+                        <canvas id="chartRoomTypes"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tables: Today's Check-ins & Today's Check-outs -->
+    <div class="row g-4 mb-4">
+        <!-- Check-ins Table -->
+        <div class="col-12 col-xl-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 pt-3 px-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold font-outfit mb-0"><i class="fa-solid fa-right-to-bracket text-teal me-2" style="color:#20c997;"></i>Today's Expected Check-ins</h5>
+                    <span class="badge bg-teal-subtle text-teal">{{ todays_checkins|length }} Guests</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Guest Name</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if todays_checkins %}
+                                    {% for b in todays_checkins %}
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold">{{ b.customer.full_name if b.customer else 'Guest' }}</div>
+                                            <small class="text-muted">{{ b.customer.phone if b.customer else '-' }}</small>
+                                        </td>
+                                        <td><span class="badge bg-secondary">Room {{ b.room.room_number if b.room else '-' }}</span></td>
+                                        <td>
+                                            <span class="badge bg-info-subtle text-info text-capitalize">{{ b.status }}</span>
+                                        </td>
+                                        <td>
+                                            {% if b.status == 'reserved' %}
+                                            <a href="{{ url_for('booking.check_in', booking_id=b._id) }}" class="btn btn-sm btn-success rounded-pill px-3">Check-In</a>
+                                            {% else %}
+
+                                            <a href="{{ url_for('booking.booking_details', booking_id=b._id) }}" class="btn btn-sm btn-light rounded-pill">View</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted">No check-ins scheduled for today.</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Check-outs Table -->
+        <div class="col-12 col-xl-6">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-0 pt-3 px-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold font-outfit mb-0"><i class="fa-solid fa-right-from-bracket text-purple me-2" style="color:#6f42c1;"></i>Today's Expected Check-outs</h5>
+                    <span class="badge bg-purple-subtle text-purple">{{ todays_checkouts|length }} Guests</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Guest Name</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if todays_checkouts %}
+                                    {% for b in todays_checkouts %}
+                                    <tr>
+                                        <td>
+                                            <div class="fw-semibold">{{ b.customer.full_name if b.customer else 'Guest' }}</div>
+                                            <small class="text-muted">{{ b.customer.phone if b.customer else '-' }}</small>
+                                        </td>
+                                        <td><span class="badge bg-secondary">Room {{ b.room.room_number if b.room else '-' }}</span></td>
+                                        <td>
+                                            <span class="badge bg-warning-subtle text-warning text-capitalize">{{ b.status }}</span>
+                                        </td>
+                                        <td>
+                                            {% if b.status == 'checked_in' %}
+                                            <a href="{{ url_for('booking.check_out', booking_id=b._id) }}" class="btn btn-sm btn-warning rounded-pill px-3">Check-Out</a>
+                                            {% else %}
+                                            <a href="{{ url_for('billing.invoice', booking_id=b._id) }}" class="btn btn-sm btn-outline-primary rounded-pill">Invoice</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted">No check-outs scheduled for today.</td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Embedded chart dataset initialized from Jinja2 backend calculations
+    window.dashboardChartData = {
+        occupancy: [{{ available_rooms }}, {{ booked_rooms }}, {{ maintenance_rooms }}],
+        roomTypes: [
+            {{ room_types_count['Single'] }}, 
+            {{ room_types_count['Double'] }}, 
+            {{ room_types_count['Deluxe'] }}, 
+            {{ room_types_count['Suite'] }}
+        ],
+        bookingStatus: [
+            {{ booking_status_count['Reserved'] }}, 
+            {{ booking_status_count['Checked In'] }}, 
+            {{ booking_status_count['Checked Out'] }}, 
+            {{ booking_status_count['Cancelled'] }}
+        ],
+        monthlyLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        monthlyRevenue: [12500, 18400, 24000, 29500, 34200, {{ total_revenue|round(2) }}]
+    };
+</script>
+{% endblock %}

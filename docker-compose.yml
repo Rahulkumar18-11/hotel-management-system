@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # 1. MongoDB Database Container
+  mongodb:
+    image: mongo:6.0
+    container_name: hotel_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: hotel_management
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - hotel_network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Flask Web Application Container
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hotel_web_app
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=hotel_mca_cloud_devops_secret_key_2026
+      - MONGO_URI=mongodb://mongodb:27017/hotel_management
+      - MONGO_DB_NAME=hotel_management
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - hotel_network
+
+networks:
+  hotel_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local

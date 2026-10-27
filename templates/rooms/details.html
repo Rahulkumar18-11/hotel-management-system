@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}Room Details - Hotel Management System{% endblock %}
+{% block header_title %}Room Details{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+            <div class="position-relative" style="height: 300px; background-color: #343a40;">
+                {% if room.image_url %}
+                    <img src="{{ room.image_url }}" alt="Room {{ room.room_number }}" class="w-100 h-100 object-fit-cover">
+                {% else %}
+                    <div class="w-100 h-100 d-flex align-items-center justify-content-center text-white-50">
+                        <i class="fa-solid fa-bed fa-5x"></i>
+                    </div>
+                {% endif %}
+                <span class="position-absolute top-0 end-0 m-4 badge rounded-pill fs-6 
+                    {% if room.status == 'available' %}bg-success
+                    {% elif room.status == 'booked' %}bg-warning text-dark
+                    {% else %}bg-danger{% endif %} shadow">
+                    {{ room.status.upper() }}
+                </span>
+            </div>
+
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h3 class="fw-bold font-outfit text-dark mb-0">Room {{ room.room_number }}</h3>
+                        <span class="badge bg-primary-subtle text-primary fs-6">{{ room.room_type }} Category</span>
+                    </div>
+                    <div class="text-end">
+                        <h3 class="fw-bold text-primary font-outfit mb-0">₹{{ "{:,.0f}".format(room.price_per_day) }}</h3>
+                        <small class="text-muted">Per Night / Day</small>
+                    </div>
+                </div>
+
+                <div class="row g-3 my-3">
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Capacity</small>
+                            <span class="fw-bold fs-5 text-dark"><i class="fa-solid fa-user-group me-1"></i>{{ room.capacity }} Guests</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Status</small>
+                            <span class="fw-bold fs-5 text-capitalize text-dark">{{ room.status }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Category</small>
+                            <span class="fw-bold fs-5 text-dark">{{ room.room_type }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-light rounded-3 text-center">
+                            <small class="text-muted d-block text-uppercase">Room ID</small>
+                            <span class="small font-monospace text-secondary">{{ str(room._id)[-6:] }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-light rounded-3 mb-4">
+                    <small class="text-muted text-uppercase fw-semibold d-block">Description & Amenities</small>
+                    <p class="mb-0 mt-1 text-dark">{{ room.description or 'No extra description provided.' }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ url_for('room.list_rooms') }}" class="btn btn-light px-4">Back to List</a>
+                    <div class="d-flex gap-2">
+                        {% if current_user.role in ['admin', 'manager'] %}
+                        <a href="{{ url_for('room.edit_room', room_id=room._id) }}" class="btn btn-outline-secondary px-4">Edit Room</a>
+                        {% endif %}
+                        {% if room.status == 'available' %}
+                        <a href="{{ url_for('booking.add_booking') }}?room_id={{ room._id }}" class="btn btn-primary px-4">Book Room</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

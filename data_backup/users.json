@@ -1,0 +1,142 @@
+[
+  {
+    "_id": {
+      "$oid": "6aa07876fb753c96bcbfa5df"
+    },
+    "username": "admin",
+    "email": "admin@hotel.com",
+    "phone": "9876543210",
+    "password": "123456",
+    "role": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:54.898Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07877fb753c96bcbfa5e0"
+    },
+    "username": "receptionist",
+    "email": "receptionist@hotel.com",
+    "phone": "9812345678",
+    "password": "$2b$12$IBQ2k43aaoaFrdG6bUShruwHlnM7iOXXC3513.MM0rVF9TOOpqiGO",
+    "role": "receptionist",
+    "created_at": {
+      "$date": "2026-09-08T21:04:55.096Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07877fb753c96bcbfa5e1"
+    },
+    "username": "manager",
+    "email": "manager@hotel.com",
+    "phone": "9988776655",
+    "password": "$2b$12$JZNK2jXRpYihIyj3WUqfK.8y4bIoLcZeZuJBQkYOTp.hcH4UUC8DW",
+    "role": "manager",
+    "created_at": {
+      "$date": "2026-09-08T21:04:55.293Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07877fb753c96bcbfa5e2"
+    },
+    "username": "receptionist2",
+    "email": "sarah.reception@hotel.com",
+    "phone": "9765432109",
+    "password": "$2b$12$IaUL.U.x2fsXLZeY4iTTyOeH2iwK/NqNnEk.PeP7lML5hCKPk.FYO",
+    "role": "receptionist",
+    "created_at": {
+      "$date": "2026-09-08T21:04:55.489Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07877fb753c96bcbfa5e3"
+    },
+    "username": "receptionist3",
+    "email": "david.frontdesk@hotel.com",
+    "phone": "9654321098",
+    "password": "$2b$12$KoVRP6HoQ2EiUHRu6dN4fOdP1sE/u/AtjYmaW6e9/SHgt0KuU/h9K",
+    "role": "receptionist",
+    "created_at": {
+      "$date": "2026-09-08T21:04:55.683Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07877fb753c96bcbfa5e4"
+    },
+    "username": "manager2",
+    "email": "robert.opsmanager@hotel.com",
+    "phone": "9543210987",
+    "password": "$2b$12$q3qcMulMax.7IrHDf/XBIO41rauzPcqHdUBZ6B.5Ec9uuJLmi7zlm",
+    "role": "manager",
+    "created_at": {
+      "$date": "2026-09-08T21:04:55.879Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5e5"
+    },
+    "username": "admin2",
+    "email": "system.admin2@hotel.com",
+    "phone": "9432109876",
+    "password": "$2b$12$dqlcvdNabNvwL6xeRD737ePYlLet6Rrh25Wgd7FEFAMGppN8KmGY6",
+    "role": "admin",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.075Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5e6"
+    },
+    "username": "staff_user1",
+    "email": "anita.staff@hotel.com",
+    "phone": "",
+    "password": "$2b$12$2mlRiMMViKkS8lbFFYQopOI543nNoka0C5y2zi6gXerk0JLrTyaZ.",
+    "role": "receptionist",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.271Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5e7"
+    },
+    "username": "staff_user2",
+    "email": "vikram.staff@hotel.com",
+    "phone": "",
+    "password": "$2b$12$1KFfRjR.LRbJlV3s0zGGFOEZaT4NtxiFEk33ggxO9tju5u1IDLWnK",
+    "role": "receptionist",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.468Z"
+    },
+    "is_active": true
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5e8"
+    },
+    "username": "finance_mgr",
+    "email": "finance.manager@hotel.com",
+    "phone": "",
+    "password": "$2b$12$xf6xjhT74Upc.EhGr..DhebHtES.KBNTpf5mluq7uRhrdAxz5vS1a",
+    "role": "manager",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.662Z"
+    },
+    "is_active": true
+  }
+]

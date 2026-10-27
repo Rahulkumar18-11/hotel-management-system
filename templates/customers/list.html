@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% block title %}Customers & Guests - Hotel Management System{% endblock %}
+{% block header_title %}Guest / Customer Directory{% endblock %}
+
+{% block content %}
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-header bg-white border-0 pt-4 px-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+        <div>
+            <h4 class="fw-bold font-outfit text-dark mb-0"><i class="fa-solid fa-users text-primary me-2"></i>Registered Hotel Guests</h4>
+            <p class="text-muted small mb-0">Manage customer records and uploaded ID proofs.</p>
+        </div>
+        
+        <div class="d-flex align-items-center gap-2">
+            <form method="GET" action="{{ url_for('customer.list_customers') }}" class="d-flex align-items-center gap-2">
+                <div class="input-group input-group-sm">
+                    <input type="text" name="q" value="{{ search_query }}" class="form-control rounded-start-pill" placeholder="Search name, phone, email...">
+                    <button type="submit" class="btn btn-primary rounded-end-pill"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                {% if search_query %}
+                    <a href="{{ url_for('customer.list_customers') }}" class="btn btn-sm btn-outline-secondary rounded-circle" title="Clear Search"><i class="fa-solid fa-xmark"></i></a>
+                {% endif %}
+            </form>
+            <a href="{{ url_for('customer.add_customer') }}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm text-nowrap">
+                <i class="fa-solid fa-user-plus me-1"></i> Register Guest
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body p-0 mt-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Guest Name</th>
+                        <th>Contact Email</th>
+                        <th>Phone</th>
+                        <th>ID Proof Type</th>
+                        <th>ID Number</th>
+                        <th>ID Document</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if customers %}
+                        {% for c in customers %}
+                        <tr>
+                            <td class="ps-4">
+                                <div class="fw-bold text-dark font-outfit">{{ c.full_name }}</div>
+                                <small class="text-muted">Registered: {{ c.created_at.strftime('%b %d, %Y') if c.created_at else '-' }}</small>
+                            </td>
+                            <td>{{ c.email }}</td>
+                            <td><span class="badge bg-light text-dark font-monospace">{{ c.phone }}</span></td>
+                            <td><span class="badge bg-primary-subtle text-primary">{{ c.id_type }}</span></td>
+                            <td class="font-monospace fw-semibold">{{ c.id_number }}</td>
+                            <td>
+                                {% if c.id_proof_url %}
+                                    <a href="{{ c.id_proof_url }}" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0" style="font-size:0.75rem;">
+                                        <i class="fa-solid fa-paperclip me-1"></i> View Proof
+                                    </a>
+                                {% else %}
+                                    <span class="text-muted small">No file</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end pe-4">
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ url_for('customer.customer_details', customer_id=c._id) }}" class="btn btn-outline-primary" title="View Details"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ url_for('customer.edit_customer', customer_id=c._id) }}" class="btn btn-outline-secondary" title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    {% if current_user.role in ['admin', 'manager'] %}
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ c._id }}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Delete Modal -->
+                                {% if current_user.role in ['admin', 'manager'] %}
+                                <div class="modal fade" id="deleteModal{{ c._id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered text-start">
+                                        <div class="modal-content rounded-4 border-0">
+                                            <div class="modal-header border-0">
+                                                <h5 class="modal-title fw-bold">Confirm Delete</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete customer record for <strong>{{ c.full_name }}</strong>? This action cannot be undone.
+                                            </div>
+                                            <div class="modal-footer border-0">
+                                                <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                                                <form method="POST" action="{{ url_for('customer.delete_customer', customer_id=c._id) }}" class="d-inline">
+                                                    <button type="submit" class="btn btn-danger rounded-pill px-4">Delete Record</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-user-slash fa-2x mb-2 d-block"></i>
+                            No customer records found.
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

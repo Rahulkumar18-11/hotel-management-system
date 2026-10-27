@@ -1,0 +1,362 @@
+[
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5e9"
+    },
+    "room_number": "101",
+    "room_type": "Single",
+    "price_per_day": 1500.0,
+    "capacity": 1,
+    "status": "available",
+    "description": "Standard single bed room with high-speed Wi-Fi and AC.",
+    "image_url": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.663Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.663Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5ea"
+    },
+    "room_number": "102",
+    "room_type": "Single",
+    "price_per_day": 1600.0,
+    "capacity": 1,
+    "status": "booked",
+    "description": "Cozy single room facing quiet garden lawn.",
+    "image_url": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.664Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5eb"
+    },
+    "room_number": "103",
+    "room_type": "Double",
+    "price_per_day": 2500.0,
+    "capacity": 2,
+    "status": "booked",
+    "description": "Spacious double room with queen bed and LED TV.",
+    "image_url": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.665Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.687Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5ec"
+    },
+    "room_number": "104",
+    "room_type": "Double",
+    "price_per_day": 2600.0,
+    "capacity": 2,
+    "status": "available",
+    "description": "Double bed room with city view and mini fridge.",
+    "image_url": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.665Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5ed"
+    },
+    "room_number": "105",
+    "room_type": "Deluxe",
+    "price_per_day": 3800.0,
+    "capacity": 3,
+    "status": "booked",
+    "description": "Luxury deluxe room with king bed and balcony.",
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.666Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.688Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5ee"
+    },
+    "room_number": "201",
+    "room_type": "Double",
+    "price_per_day": 2700.0,
+    "capacity": 2,
+    "status": "booked",
+    "description": "Executive double room with work desk and tea maker.",
+    "image_url": "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.667Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.689Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5ef"
+    },
+    "room_number": "202",
+    "room_type": "Deluxe",
+    "price_per_day": 4000.0,
+    "capacity": 3,
+    "status": "available",
+    "description": "Deluxe family room with dual queen beds.",
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.668Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.690Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f0"
+    },
+    "room_number": "203",
+    "room_type": "Deluxe",
+    "price_per_day": 4200.0,
+    "capacity": 3,
+    "status": "booked",
+    "description": "Corner deluxe suite featuring panoramic windows.",
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.668Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.692Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f1"
+    },
+    "room_number": "204",
+    "room_type": "Single",
+    "price_per_day": 1800.0,
+    "capacity": 1,
+    "status": "maintenance",
+    "description": "Single room currently undergoing routine HVAC servicing.",
+    "image_url": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.669Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.670Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f2"
+    },
+    "room_number": "205",
+    "room_type": "Suite",
+    "price_per_day": 6000.0,
+    "capacity": 4,
+    "status": "booked",
+    "description": "Premium junior suite with living area and sofa.",
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.670Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.690Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f3"
+    },
+    "room_number": "301",
+    "room_type": "Suite",
+    "price_per_day": 6500.0,
+    "capacity": 4,
+    "status": "booked",
+    "description": "Executive suite with private jacuzzi and ocean view.",
+    "image_url": "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.670Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.693Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f4"
+    },
+    "room_number": "302",
+    "room_type": "Suite",
+    "price_per_day": 7000.0,
+    "capacity": 4,
+    "status": "available",
+    "description": "Presidential suite featuring master bedroom and dining.",
+    "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.671Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.691Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f5"
+    },
+    "room_number": "303",
+    "room_type": "Deluxe",
+    "price_per_day": 4500.0,
+    "capacity": 3,
+    "status": "available",
+    "description": "Deluxe room with plush seating and bath tub.",
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.672Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.693Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f6"
+    },
+    "room_number": "304",
+    "room_type": "Double",
+    "price_per_day": 2800.0,
+    "capacity": 2,
+    "status": "booked",
+    "description": "Double room on 3rd floor with hill view.",
+    "image_url": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.672Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.694Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f7"
+    },
+    "room_number": "305",
+    "room_type": "Single",
+    "price_per_day": 1900.0,
+    "capacity": 1,
+    "status": "booked",
+    "description": "Single room equipped with ergonomic workspace.",
+    "image_url": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.673Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.695Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f8"
+    },
+    "room_number": "401",
+    "room_type": "Suite",
+    "price_per_day": 8000.0,
+    "capacity": 5,
+    "status": "available",
+    "description": "Grand Royal Suite with private rooftop terrace.",
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.674Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.695Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5f9"
+    },
+    "room_number": "402",
+    "room_type": "Deluxe",
+    "price_per_day": 4800.0,
+    "capacity": 3,
+    "status": "booked",
+    "description": "Deluxe suite with high-ceiling modern interior.",
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.674Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.696Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5fa"
+    },
+    "room_number": "403",
+    "room_type": "Double",
+    "price_per_day": 3000.0,
+    "capacity": 2,
+    "status": "maintenance",
+    "description": "Double room undergoing bathroom renovation.",
+    "image_url": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.675Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.675Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5fb"
+    },
+    "room_number": "404",
+    "room_type": "Single",
+    "price_per_day": 2000.0,
+    "capacity": 1,
+    "status": "available",
+    "description": "Top floor single room with quiet environment.",
+    "image_url": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.675Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.675Z"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6aa07878fb753c96bcbfa5fc"
+    },
+    "room_number": "405",
+    "room_type": "Suite",
+    "price_per_day": 7500.0,
+    "capacity": 4,
+    "status": "available",
+    "description": "Penthouse suite with panoramic skyline views.",
+    "image_url": "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80",
+    "created_at": {
+      "$date": "2026-09-08T21:04:56.675Z"
+    },
+    "updated_at": {
+      "$date": "2026-09-08T21:04:56.676Z"
+    }
+  }
+]
