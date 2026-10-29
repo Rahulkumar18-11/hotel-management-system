@@ -4,6 +4,7 @@ pipeline {
     environment {
         APP_NAME = "hotel-management-system"
         PORT = "5000"
+        PYTHONPATH = "."
         PATH = "C:\\Python313\\Scripts;C:\\Python313;C:\\Users\\RAHUL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;${env.PATH}"
     }
 
@@ -23,7 +24,7 @@ pipeline {
                 echo ' Stage 2: Checking Python & Tools'
                 echo '====================================='
                 bat 'python.exe --version'
-                bat 'pytest.exe --version'
+                bat 'python.exe -m pip --version'
             }
         }
 
@@ -32,7 +33,7 @@ pipeline {
                 echo '====================================='
                 echo ' Stage 3: Running Automated Pytest Suite'
                 echo '====================================='
-                bat 'pytest.exe -v'
+                bat 'python.exe -m pytest -v'
             }
         }
 
