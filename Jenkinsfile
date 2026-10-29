@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_NAME = "hotel-management-system"
         PORT = "5000"
-        PATH = "C:\\Users\\RAHUL\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\RAHUL\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\Users\\RAHUL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;${env.PATH}"
+        PATH = "C:\\jenkins_py\\Scripts;C:\\jenkins_py;C:\\Users\\RAHUL\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin;${env.PATH}"
     }
 
     stages {
@@ -22,8 +22,8 @@ pipeline {
                 echo '====================================='
                 echo ' Stage 2: Checking Python & Tools'
                 echo '====================================='
-                bat 'python --version'
-                bat 'pip --version'
+                bat 'python.exe --version'
+                bat 'pytest.exe --version'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
                 echo '====================================='
                 echo ' Stage 3: Running Automated Pytest Suite'
                 echo '====================================='
-                bat 'python -m pytest -v'
+                bat 'pytest.exe -v'
             }
         }
 
@@ -42,21 +42,21 @@ pipeline {
                 echo ' Stage 4: Docker Container Deployment'
                 echo '====================================='
                 script {
-                    def dockerStatus = bat(script: 'docker info >nul 2>&1', returnStatus: true)
+                    def dockerStatus = bat(script: 'docker.exe info >nul 2>&1', returnStatus: true)
                     if (dockerStatus == 0) {
-                        echo '[INFO] Docker daemon is running! Proceeding with Docker build & deployment...'
-                        bat 'docker build -t hotel-management-system:latest .'
-                        bat 'docker-compose down || rem'
-                        bat 'docker-compose up --build -d'
+                        echo '[INFO] Docker daemon is active! Building image and running Docker Compose...'
+                        bat 'docker.exe build -t hotel-management-system:latest .'
+                        bat 'docker-compose.exe down || rem'
+                        bat 'docker-compose.exe up --build -d'
                         echo 'Waiting for containers to initialize...'
                         bat 'timeout /t 15 /nobreak'
-                        bat 'docker exec hotel_web_app python seed.py'
-                        echo 'Deployment via Docker completed!'
+                        bat 'docker.exe exec hotel_web_app python seed.py'
+                        echo 'Deployment via Docker containers completed successfully!'
                     } else {
-                        echo '[WARNING] Docker daemon is not currently running.'
-                        echo 'To deploy via Docker: start Docker Desktop and rerun the build.'
-                        echo 'Validating database schema and seeding local database...'
-                        bat 'python seed.py'
+                        echo '[WARNING] Docker daemon is not running.'
+                        echo 'Note: Start Docker Desktop anytime to automatically trigger Dockerized containers.'
+                        echo 'Proceeding with database seed & validation...'
+                        bat 'python.exe seed.py'
                     }
                 }
             }
@@ -67,7 +67,7 @@ pipeline {
                 echo '====================================='
                 echo ' Stage 5: Database & Records Verification'
                 echo '====================================='
-                bat 'python check_db.py'
+                bat 'python.exe check_db.py'
             }
         }
     }
